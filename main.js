@@ -1,54 +1,40 @@
-const data = `city,population,area,density,country
-  Shanghai,24256800,6340,3826,China
-  Delhi,16787941,1484,11313,India
-  Lagos,16060303,1171,13712,Nigeria
-  Istanbul,14160467,5461,2593,Turkey
-  Tokyo,13513734,2191,6168,Japan
-  Sao Paulo,12038175,1521,7914,Brazil
-  Mexico City,8874724,1486,5974,Mexico
-  London,8673713,1572,5431,United Kingdom
-  New York City,8537673,784,10892,United States
-  Bangkok,8280925,1569,5279,Thailand`;
+import { data } from './data.js';
 
 const parseData = (data) => {
-  const lines = data.split('\n');
-  lines.pop();
-
-  return lines;
+  return data?.split('\n');
 };
 
 const createInitialTable = (lines) => {
   const table = [];
-  let first = true;
 
   for (const line of lines) {
-    if (first) {
-      first = false;
-    } else {
-      const cells = line.split(',');
-      table.push([cells[0], cells[1], cells[2], cells[3], cells[4]]);
-    }
+    const cells = line.split(',');
+    table.push([cells[0].trim(), cells[1].trim(), cells[2].trim(), cells[3].trim(), cells[4].trim()]);
   }
 
   return table;
 };
 
 const getMaxDensity = (table) => {
-  let max = 0;
+  let maxDensity = 0;
 
   for (const row of table) {
-    const d = parseInt(row[3]);
-    if (d > max) max = d;
+    const density = parseInt(row[3]);
+    if (density > maxDensity) maxDensity = density;
   }
 
-  return max;
+  return maxDensity;
 };
 
-const addDensityPercentageCell = (table, max) => {
+const addDensityPercentageCell = (table, maxDensity) => {
   const tableWithPercentages = [...table];
 
   for (const row of tableWithPercentages) {
-    const a = Math.round((row[3] * 100) / max);
+    let a = Math.round((row[3] * 100) / maxDensity);
+    if (isNaN(a)) {
+      a = 'DensityPercentage';
+    }
+
     row.push(a.toString());
   }
 
@@ -66,7 +52,7 @@ const printTable = (table) => {
     s += row[2].padStart(8);
     s += row[3].padStart(8);
     s += row[4].padStart(18);
-    s += row[5].padStart(6);
+    s += row[5].padStart(18);
     console.log(s);
   }
 };
