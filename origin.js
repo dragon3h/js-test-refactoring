@@ -23,7 +23,7 @@ if (data) {
     if (d > max) max = d;
     table.push([cells[0], cells[1], cells[2], cells[3], cells[4]]);
   }
-  console.log({ table });
+
   for (const row of table) {
     const a = Math.round((row[3] * 100) / max);
     row.push(a.toString());
