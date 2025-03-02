@@ -30,12 +30,12 @@ const addDensityPercentageCell = (table, maxDensity) => {
   const tableWithPercentages = [...table];
 
   for (const row of tableWithPercentages) {
-    let a = Math.round((row[3] * 100) / maxDensity);
-    if (isNaN(a)) {
-      a = 'DensityPercentage';
+    let densityPercentage = Math.round((row[3] * 100) / maxDensity);
+    if (isNaN(densityPercentage)) {
+      densityPercentage = 'DensityPercentage';
     }
 
-    row.push(a.toString());
+    row.push(densityPercentage.toString());
   }
 
   return tableWithPercentages;
