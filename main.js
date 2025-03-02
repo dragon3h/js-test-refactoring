@@ -12,18 +12,20 @@ const data = `city,population,area,density,country
 
 if (data) {
   const lines = data.split('\n');
-
   lines.pop();
   const table = [];
   let first = true;
   let max = 0;
   for (const line of lines) {
-    const cells = line.split(',');
-    const d = parseInt(cells[3]);
-    if (d > max) max = d;
-    table.push([cells[0], cells[1], cells[2], cells[3], cells[4]]);
+    if (first) {
+      first = false;
+    } else {
+      const cells = line.split(',');
+      const d = parseInt(cells[3]);
+      if (d > max) max = d;
+      table.push([cells[0], cells[1], cells[2], cells[3], cells[4]]);
+    }
   }
-  console.log({ table });
   for (const row of table) {
     const a = Math.round((row[3] * 100) / max);
     row.push(a.toString());
