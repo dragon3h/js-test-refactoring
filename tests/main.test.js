@@ -16,7 +16,7 @@ describe('City Data Processing Test', () => {
   });
 
   it('should process city data correctly', async () => {
-    await import('./main.js');
+    await import('../src/main.js');
 
     // Verify number of rows printed (10 city rows)
     expect(consoleLogSpy).toHaveBeenCalledTimes(9);
